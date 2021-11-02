@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = {"/user", "/"})
 //@RestController
 public class UserStoryController {
 

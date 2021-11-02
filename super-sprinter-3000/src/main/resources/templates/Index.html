@@ -5,26 +5,31 @@
     <title th:text="${title}">Title</title>
 </head>
 <body>
-<h2>Test</h2>
-
+<h2>Super Sprinter 3000</h2>
+<button>
+    <a href="/story">Add User Story</a>
+</button>
 <table>
     <tr>
         <th>ID</th>
-        <th>Story title</th>
-        <th>Description</th>
+        <th>Story Title</th>
+        <th>User Story</th>
+        <th>Acceptance Criteria</th>
         <th>Business Value</th>
         <th>Estimation</th>
         <th>Status</th>
+        <th>Act</th>
     </tr>
 
     <tr th:each="story, state : ${allUserStories}" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
         <td th:utext="${story.id}">ID</td>
         <td th:utext="${story.title}">Title</td>
         <td th:utext="${story.description}">Description</td>
+        <td th:utext="${story.acceptanceCriteria}">Acceptance Criteria</td>
         <td th:utext="${story.businessValue}">Business Value</td>
         <td th:utext="${story.estimation}">Estimation</td>
         <td th:utext="${story.status}">Status</td>
-        <td th:utext="${story.acceptanceCriteria}">Acceptance Criteria</td>
+        <td><button><a th:href="@{'/story/' + ${story.id}}">Update</a></button></td>
     </tr>
 </table>
 </body>
