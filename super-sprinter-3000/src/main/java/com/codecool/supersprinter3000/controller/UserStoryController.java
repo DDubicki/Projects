@@ -29,7 +29,7 @@ public class UserStoryController {
     public String getIndexPage(Model model){
         model.addAttribute("title", "Welcome Super");
         model.addAttribute("allUserStories", service.getAll());
-        return "Index";
+        return "index";
     }
 
     @ResponseBody
