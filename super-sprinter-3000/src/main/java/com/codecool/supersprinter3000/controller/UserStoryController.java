@@ -42,7 +42,7 @@ public class UserStoryController {
         UserStory userStory2 = new UserStory();
         userStory2.setEstimation(5);
         userStory2.setStatus("tytul 2");
-
+        System.out.println("s");
         service.saveAll(Arrays.asList(userStory, userStory2));
     }
 }
