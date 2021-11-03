@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping(value = {"/user", "/"})
+@RequestMapping(value = {"/"})
 //@RestController
 public class UserStoryController {
 
@@ -27,7 +27,7 @@ public class UserStoryController {
 //    @PutMapping
 //    @ResponseBody
     public String getIndexPage(Model model){
-        model.addAttribute("title", "Welcome Super");
+        model.addAttribute("title", "Super Sprinter");
         model.addAttribute("allUserStories", service.getAll());
         return "index";
     }
@@ -45,4 +45,17 @@ public class UserStoryController {
         System.out.println("s");
         service.saveAll(Arrays.asList(userStory, userStory2));
     }
+
+    @GetMapping("/story")
+    public String getStoryPage(Model model){
+        model.addAttribute("title", "New story");
+        return "story";
+    }
+
+
+//    public String addStory(){
+//
+//    }
+
+
 }

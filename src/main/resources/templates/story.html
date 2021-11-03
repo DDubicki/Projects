@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+</head>
+<body>
+<h1>New story</h1>
+<div>
+    <label for="story_title">
+        <h4>Story title
+            <input id="story_title" placeholder="Title">
+        </h4>
+    </label>
+
+    <label for="user_story">
+        <h4>Story
+            <input id="user_story" placeholder="Story">
+        </h4>
+    </label>
+
+    <label for="acceptance">
+        <h4>Acceptance Criteria
+            <input id="acceptance" placeholder="Acceptance">
+        </h4>
+    </label>
+
+    <label for="business_value">
+        <h4>Business Value
+            <input id="business_value" placeholder="Value">
+        </h4>
+    </label>
+
+    <label for="estimation">
+        <h4>Estimation
+            <input id="estimation" placeholder="Estimation">
+        </h4>
+    </label>
+    <button type="submit">Add</button>
+
+</div>
+</body>
+</html>
