@@ -2,16 +2,17 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Arrays;
+import java.util.Map;
 
 @Controller
-@RequestMapping(value = {"/user", "/"})
+@RequestMapping(value = {"/"})
 //@RestController
 public class UserStoryController {
 
@@ -26,15 +27,15 @@ public class UserStoryController {
 //    @DeleteMapping
 //    @PutMapping
 //    @ResponseBody
-    public String getIndexPage(Model model){
-        model.addAttribute("title", "Welcome Super");
+    public String getIndexPage(Model model) {
+        model.addAttribute("title", "Super Sprinter");
         model.addAttribute("allUserStories", service.getAll());
         return "index";
     }
 
     @ResponseBody
-    @GetMapping("populate")
-    public void populate(){
+    @GetMapping("/populate")
+    public void populate() {
         UserStory userStory = new UserStory();
         userStory.setEstimation(10);
         userStory.setStatus("tytul 1");
@@ -45,4 +46,17 @@ public class UserStoryController {
         System.out.println("s");
         service.saveAll(Arrays.asList(userStory, userStory2));
     }
+
+    @GetMapping("/story")
+    public String getStoryPage(Model model) {
+        model.addAttribute("title", "New story");
+        return "story";
+    }
+
+    @PostMapping("/story")
+    public String addStory() {
+        return "Something";
+    }
+
+
 }
