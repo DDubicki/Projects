@@ -6,38 +6,38 @@
 </head>
 <body>
 <h1>New story</h1>
-<div>
+<form action="/story" method="post">
     <label for="story_title">
         <h4>Story title
-            <input id="story_title" placeholder="Title">
+            <input name="Story title" id="story_title" type="text" placeholder="Title">
         </h4>
     </label>
 
     <label for="user_story">
         <h4>Story
-            <input id="user_story" placeholder="Story">
+            <input name="Story" id="user_story" type="text" placeholder="Story">
         </h4>
     </label>
 
     <label for="acceptance">
         <h4>Acceptance Criteria
-            <input id="acceptance" placeholder="Acceptance">
+            <input name="Acceptance Criteria" id="acceptance" type="text" placeholder="Acceptance">
         </h4>
     </label>
 
     <label for="business_value">
         <h4>Business Value
-            <input id="business_value" placeholder="Value">
+            <input name="Business Value" id="business_value" type="text" placeholder="Value">
         </h4>
     </label>
 
     <label for="estimation">
         <h4>Estimation
-            <input id="estimation" placeholder="Estimation">
+            <input name="Estimation" id="estimation" type="text" placeholder="Estimation">
         </h4>
     </label>
-    <button type="submit">Add</button>
+    <input type="submit" value="Submit">
 
-</div>
+</form>
 </body>
 </html>
