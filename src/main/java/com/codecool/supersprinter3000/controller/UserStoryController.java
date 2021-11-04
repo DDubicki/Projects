@@ -53,8 +53,18 @@ public class UserStoryController {
 
     @PostMapping("/story")
     public void addStory(@RequestParam("story") List<String> data) {
-        System.out.println(data);
+        UserStory story = new UserStory();
+        prepareStory(story, data);
+        service.saveStory(story);
     }
 
+    private void prepareStory(UserStory story, List<String> data) {
+        story.setTitle(data.get(0));
+        story.setDescription(data.get(1));
+        story.setAcceptanceCriteria(data.get(2));
+        story.setBusinessValue(Integer.parseInt(data.get(3)));
+        story.setEstimation(Double.parseDouble(data.get(4)));
+        story.setStatus("New");
+    }
 
 }

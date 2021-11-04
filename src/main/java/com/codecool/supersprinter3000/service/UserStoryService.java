@@ -24,4 +24,8 @@ public class UserStoryService {
     public void saveAll(List<UserStory> userStories) {
         repository.saveAll(userStories);
     }
+
+    public void saveStory(UserStory story) {
+        repository.save(story);
+    }
 }
