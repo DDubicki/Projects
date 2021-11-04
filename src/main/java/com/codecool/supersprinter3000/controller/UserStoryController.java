@@ -2,14 +2,12 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/"})
@@ -54,8 +52,8 @@ public class UserStoryController {
     }
 
     @PostMapping("/story")
-    public String addStory() {
-        return "Something";
+    public void addStory(@RequestParam("story") List<String> data) {
+        System.out.println(data);
     }
 
 
