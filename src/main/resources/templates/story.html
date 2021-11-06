@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
+
+    <!--    <script type="javascript" src="/js/main.js"></script>-->
 </head>
 <body>
+
+
 <h1>New story</h1>
-<form action="/story" method="post">
+<form id="saveNewStory" action="/story" method="post">
     <p>Story title
         <input name="story" id="story_title" type="text" placeholder="Title">
     </p>
@@ -29,5 +33,62 @@
     <input type="submit" value="Submit">
 </form>
 
+<script defer>
+    document.getElementById("saveNewStory").addEventListener("submit", doSomething);
+
+    function doSomething() {
+        const BASE_URL = 'http://localhost:8080';
+        let input = {
+            "story_title": document.getElementById("story_title").value,
+            "user_story": document.getElementById("user_story").value,
+            "acceptance": document.getElementById("acceptance").value,
+            "business_value": document.getElementById("business_value").value,
+            "estimation": document.getElementById("estimation").value,
+        }
+
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(input)
+        }
+
+        fetch("http://localhost:8080/story", options)
+            .then(response => response.json())
+            .then(d => {console.log(d)})
+            .catch(error => { console.log("")})
+
+
+
+        // fetchRes.then(res =>
+        //     res.json()).then(d => {
+        //     console.log(d)
+        //
+        // }
+
+        //
+        // let fetchRes = fetch(
+        //     "http://localhost:8080/story",
+        //     options);
+        // fetchRes.then(res =>
+        //     res.json()).then(d => {
+        //     console.log(d)
+
+// function fetchData(base_url, route) {
+//     window.history.pushState(null, null, base_url);
+//     fetch(base_url + route)
+//         .then(response => response.json())
+//         .catch(error => {
+//             console.log("")
+//         });
+// }
+
+
+    }
+
+</script>
+
 </body>
+
 </html>

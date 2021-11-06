@@ -2,6 +2,7 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-@Controller
+@Controller //
 @RequestMapping(value = {"/"})
 //@RestController
 public class UserStoryController {
@@ -51,11 +52,13 @@ public class UserStoryController {
         return "story";
     }
 
-    @PostMapping("/story")
-    public void addStory(@RequestParam("story") List<String> data) {
-        UserStory story = new UserStory();
-        prepareStory(story, data);
-        service.saveStory(story);
+    @PostMapping(value = "/story", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public String addStory(@RequestBody UserStory story) { // @RequestParam
+//        UserStory story = new UserStory();
+//        prepareStory(story, data);
+//        service.saveStory(story);
+        System.out.println(story);
+        return "redirect:/";
     }
 
     private void prepareStory(UserStory story, List<String> data) {
