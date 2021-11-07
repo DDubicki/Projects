@@ -2,13 +2,11 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Controller //
 @RequestMapping(value = {"/"})
@@ -52,22 +50,11 @@ public class UserStoryController {
         return "story";
     }
 
-    @PostMapping(value = "/story", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping("/story")
     public String addStory(@RequestBody UserStory story) { // @RequestParam
-//        UserStory story = new UserStory();
-//        prepareStory(story, data);
-//        service.saveStory(story);
-        System.out.println(story);
-        return "redirect:/";
-    }
-
-    private void prepareStory(UserStory story, List<String> data) {
-        story.setTitle(data.get(0));
-        story.setDescription(data.get(1));
-        story.setAcceptanceCriteria(data.get(2));
-        story.setBusinessValue(Integer.parseInt(data.get(3)));
-        story.setEstimation(Double.parseDouble(data.get(4)));
-        story.setStatus("New");
+        service.saveNewStory(story);
+        return "story";
+        //        return "redirect:/";
     }
 
 }

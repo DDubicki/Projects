@@ -24,71 +24,46 @@
     </p>
 
     <p>Business Value
-        <input name="story" id="business_value" type="text" placeholder="Value">
+        <input name="story" id="business_value" type="number" placeholder="Value">
     </p>
 
     <p>Estimation
-        <input name="story" id="estimation" type="text" placeholder="Estimation">
+        <input name="story" id="estimation" type="number" placeholder="Estimation">
     </p>
     <input type="submit" value="Submit">
 </form>
 
 <script defer>
-    document.getElementById("saveNewStory").addEventListener("submit", doSomething);
+    document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
 
-    function doSomething() {
+    function submitNewStory() {
         const BASE_URL = 'http://localhost:8080';
         let input = {
-            "story_title": document.getElementById("story_title").value,
-            "user_story": document.getElementById("user_story").value,
-            "acceptance": document.getElementById("acceptance").value,
-            "business_value": document.getElementById("business_value").value,
+            "title": document.getElementById("story_title").value,
+            "description": document.getElementById("user_story").value,
+            "acceptanceCriteria": document.getElementById("acceptance").value,
+            "businessValue": document.getElementById("business_value").value,
             "estimation": document.getElementById("estimation").value,
         }
 
         let options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(input)
         }
 
-        fetch("http://localhost:8080/story", options)
+        fetch(BASE_URL + "/story", options)
             .then(response => response.json())
-            .then(d => {console.log(d)})
-            .catch(error => { console.log("")})
-
-
-
-        // fetchRes.then(res =>
-        //     res.json()).then(d => {
-        //     console.log(d)
-        //
-        // }
-
-        //
-        // let fetchRes = fetch(
-        //     "http://localhost:8080/story",
-        //     options);
-        // fetchRes.then(res =>
-        //     res.json()).then(d => {
-        //     console.log(d)
-
-// function fetchData(base_url, route) {
-//     window.history.pushState(null, null, base_url);
-//     fetch(base_url + route)
-//         .then(response => response.json())
-//         .catch(error => {
-//             console.log("")
-//         });
-// }
-
+            .then(d => {
+                console.log(d)
+            })
+            .catch(error => {
+                console.log("Error occurred in submit form.")
+            })
 
     }
-
 </script>
-
 </body>
-
 </html>

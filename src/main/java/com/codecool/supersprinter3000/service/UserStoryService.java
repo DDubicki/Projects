@@ -17,7 +17,7 @@ public class UserStoryService {
         this.repository = repository;
     }
 
-    public Iterable<UserStory> getAll(){
+    public Iterable<UserStory> getAll() {
         return repository.findAll();
     }
 
@@ -25,9 +25,9 @@ public class UserStoryService {
         repository.saveAll(userStories);
     }
 
-    public void saveStory(UserStory story) {
+    public void saveNewStory(UserStory story) {
+        story.setStatus("New");
         repository.save(story);
     }
-
 
 }
