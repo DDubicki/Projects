@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-@Controller //
+@Controller
 @RequestMapping(value = {"/"})
 //@RestController
 public class UserStoryController {
@@ -22,7 +22,6 @@ public class UserStoryController {
     }
 
     @GetMapping()
-//    @PostMapping
 //    @DeleteMapping
 //    @PutMapping
 //    @ResponseBody
@@ -38,7 +37,7 @@ public class UserStoryController {
         return "story";
     }
 
-//    @PostMapping("/story")
+    @PostMapping("/story")
     public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
         service.saveNewStory(story);
         return "redirect:/";
