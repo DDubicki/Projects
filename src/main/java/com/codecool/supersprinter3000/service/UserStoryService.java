@@ -6,6 +6,7 @@ import com.codecool.supersprinter3000.repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -17,11 +18,31 @@ public class UserStoryService {
         this.repository = repository;
     }
 
-    public Iterable<UserStory> getAll(){
+    public Iterable<UserStory> getAll() {
         return repository.findAll();
     }
 
     public void saveAll(List<UserStory> userStories) {
         repository.saveAll(userStories);
+    }
+
+    public void saveNewStory(UserStory story) {
+        story.setStatus("New");
+        repository.save(story);
+    }
+
+    public void saveNewStory2(HashMap<String, String> parameters) {
+        UserStory story = new UserStory();
+        populateStory(parameters, story);
+        repository.save(story);
+    }
+
+    private void populateStory(HashMap<String, String> parameters, UserStory story) {
+        story.setTitle(parameters.get("title"));
+        story.setDescription(parameters.get("description"));
+        story.setAcceptanceCriteria(parameters.get("acceptanceCriteria"));
+        story.setBusinessValue(Integer.parseInt(parameters.get("businessValue")));
+        story.setEstimation(Double.parseDouble(parameters.get("estimation")));
+        story.setStatus("New");
     }
 }

@@ -2,14 +2,13 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping(value = {"/"})
@@ -23,7 +22,6 @@ public class UserStoryController {
     }
 
     @GetMapping()
-//    @PostMapping
 //    @DeleteMapping
 //    @PutMapping
 //    @ResponseBody
@@ -33,20 +31,6 @@ public class UserStoryController {
         return "index";
     }
 
-    @ResponseBody
-    @GetMapping("/populate")
-    public void populate() {
-        UserStory userStory = new UserStory();
-        userStory.setEstimation(10);
-        userStory.setStatus("tytul 1");
-
-        UserStory userStory2 = new UserStory();
-        userStory2.setEstimation(5);
-        userStory2.setStatus("tytul 2");
-        System.out.println("s");
-        service.saveAll(Arrays.asList(userStory, userStory2));
-    }
-
     @GetMapping("/story")
     public String getStoryPage(Model model) {
         model.addAttribute("title", "New story");
@@ -54,9 +38,17 @@ public class UserStoryController {
     }
 
     @PostMapping("/story")
-    public String addStory() {
-        return "Something";
+    public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
+        service.saveNewStory(story);
+        return "redirect:/";
+//        return "story";
     }
 
-
+    // TODO - At first send empty form, second send correct form
+//    @PostMapping("/story")
+//    public String addStory2(@RequestParam HashMap<String, String> parameters) {
+//        if (!parameters.isEmpty())
+//            service.saveNewStory2(parameters);
+//        return "redirect:/";
+//    }
 }

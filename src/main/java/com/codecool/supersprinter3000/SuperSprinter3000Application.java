@@ -9,8 +9,5 @@ public class SuperSprinter3000Application {
 	public static void main(String[] args) {
 		SpringApplication.run(SuperSprinter3000Application.class, args);
 
-
-
 	}
-
 }
