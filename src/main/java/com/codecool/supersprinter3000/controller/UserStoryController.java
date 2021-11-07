@@ -4,9 +4,10 @@ import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller //
 @RequestMapping(value = {"/"})
@@ -28,20 +29,6 @@ public class UserStoryController {
         model.addAttribute("title", "Super Sprinter");
         model.addAttribute("allUserStories", service.getAll());
         return "index";
-    }
-
-    @ResponseBody
-    @GetMapping("/populate")
-    public void populate() {
-        UserStory userStory = new UserStory();
-        userStory.setEstimation(10);
-        userStory.setStatus("tytul 1");
-
-        UserStory userStory2 = new UserStory();
-        userStory2.setEstimation(5);
-        userStory2.setStatus("tytul 2");
-        System.out.println("s");
-        service.saveAll(Arrays.asList(userStory, userStory2));
     }
 
     @GetMapping("/story")
