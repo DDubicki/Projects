@@ -4,30 +4,41 @@
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
 
-<!--    <script src="/js/main.js" defer></script>-->
+    <script type="text/javascript" src="/js/main.js" defer></script>
 </head>
 <body>
 
 <h1>New story</h1>
 <form id="saveNewStory" action="/story" method="post">
-    <p>Story title
-        <input name="title" id="story_title" type="text" placeholder="Title">
-    </p>
 
+
+    <div th:if="${current_story}">Story title
+        <input name="title" id="story_title" type="text" placeholder="Title" minlength="5"
+               th:value="${current_story.get().title}" required>
+    </div>
+    <div th:unless="${current_story}">Story title
+        <input name="title" id="story_title" type="text" placeholder="Title" minlength="5" required>
+    </div>
+
+
+
+
+
+    <!--    TODO multiline input required-->
     <p>Story
-        <input name="description" id="user_story" type="text" placeholder="Story">
+        <input name="description" id="user_story" placeholder="Story" required>
     </p>
 
     <p>Acceptance Criteria
-        <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance">
+        <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance" required>
     </p>
 
     <p>Business Value
-        <input name="businessValue" id="business_value" type="number" placeholder="Value">
+        <input name="businessValue" id="business_value" type="number" placeholder="Value" required>
     </p>
 
     <p>Estimation
-        <input name="estimation" id="estimation" type="number" placeholder="Estimation">
+        <input name="estimation" id="estimation" type="number" placeholder="Estimation" required>
     </p>
     <input type="submit" value="Submit">
 </form>

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = {"/"})
@@ -34,14 +32,25 @@ public class UserStoryController {
     @GetMapping("/story")
     public String getStoryPage(Model model) {
         model.addAttribute("title", "New story");
-        return "story";
+        return "/story/story";
+    }
+
+    @GetMapping("/story/{storyId}")
+    public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model){
+        Optional<UserStory> optional = service.getStoryById(storyId);
+        if (optional.isPresent()) {
+            model.addAttribute("current_story", optional);
+        } else {
+            throw new IllegalStateException("There are no story with id " + storyId);
+        }
+        return "/story/story";
     }
 
     @PostMapping("/story")
     public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
         service.saveNewStory(story);
         return "redirect:/";
-//        return "story";
+//        return "/story/story";
     }
 
     // TODO - At first send empty form, second send correct form
@@ -51,4 +60,8 @@ public class UserStoryController {
 //            service.saveNewStory2(parameters);
 //        return "redirect:/";
 //    }
+
+//    @PutMapping
+//    public String updateStory()
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserStoryService {
@@ -44,5 +45,9 @@ public class UserStoryService {
         story.setBusinessValue(Integer.parseInt(parameters.get("businessValue")));
         story.setEstimation(Double.parseDouble(parameters.get("estimation")));
         story.setStatus("New");
+    }
+
+    public Optional<UserStory> getStoryById(Long storyId) {
+        return repository.findById(storyId);
     }
 }
