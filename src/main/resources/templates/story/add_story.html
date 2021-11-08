@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+</head>
+<body>
+
+<!--    TODO multiline input required-->
+<h1>New story</h1>
+<form id="saveNewStory" action="/story" method="post">
+
+    <p>Story title
+        <input name="title" id="story_title" type="text" placeholder="Title" minlength="5" required>
+    </p>
+
+    <p>Story
+        <input name="description" id="user_story" placeholder="Story" required>
+    </p>
+
+    <p>Acceptance Criteria
+        <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance" required>
+    </p>
+
+    <p>Business Value
+        <input name="businessValue" id="business_value" type="number" placeholder="Value" required>
+    </p>
+
+    <p>Estimation
+        <input name="estimation" id="estimation" type="number" placeholder="Estimation" required>
+    </p>
+    <input type="submit" value="Submit">
+</form>
+
+<script defer>
+    document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
+
+    function submitNewStory() {
+        const BASE_URL = 'http://localhost:8080';
+        let input = {
+            "title": document.getElementById("story_title").value,
+            "description": document.getElementById("user_story").value,
+            "acceptanceCriteria": document.getElementById("acceptance").value,
+            "businessValue": document.getElementById("business_value").value,
+            "estimation": document.getElementById("estimation").value,
+        }
+
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(input)
+        }
+
+        fetch(BASE_URL + "/story", options)
+            .then(response => response.json())
+            .then(d => {
+                console.log(d)
+            })
+            .catch(error => {
+                console.log("Error occurred in submit form.")
+            })
+    }
+</script>
+</body>
+</html>
