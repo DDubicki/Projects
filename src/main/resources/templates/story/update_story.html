@@ -8,23 +8,15 @@
 </head>
 <body>
 
-<h1>New story</h1>
-<form id="saveNewStory" action="/story" method="post">
+<!--    TODO multiline input required-->
+<h1 th:text="${current_story.get().title}"></h1>
+<form id="updateStory" th:action="'/story/'${storyId}" method="post">
 
-
-    <div th:if="${current_story}">Story title
+    <p>Story title
         <input name="title" id="story_title" type="text" placeholder="Title" minlength="5"
                th:value="${current_story.get().title}" required>
-    </div>
-    <div th:unless="${current_story}">Story title
-        <input name="title" id="story_title" type="text" placeholder="Title" minlength="5" required>
-    </div>
+    </p>
 
-
-
-
-
-    <!--    TODO multiline input required-->
     <p>Story
         <input name="description" id="user_story" placeholder="Story" required>
     </p>
