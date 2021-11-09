@@ -5,6 +5,7 @@ import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,4 +51,26 @@ public class UserStoryService {
     public Optional<UserStory> getStoryById(Long storyId) {
         return repository.findById(storyId);
     }
+
+    @Transactional // thanks this we shouldn't use query in Repository
+    public void updateStory(Long storyId, UserStory newStory) {
+        UserStory userStory = repository.findById(storyId)
+                .orElseThrow(()-> new IllegalStateException("Story with id" + storyId + " doesn't exist!"));
+        userStory.setTitle(newStory.getTitle());
+        userStory.setDescription(newStory.getDescription());
+        userStory.setAcceptanceCriteria(newStory.getAcceptanceCriteria());
+        userStory.setBusinessValue(newStory.getBusinessValue());
+        userStory.setEstimation(newStory.getEstimation());
+    }
+
+    // TODO: fix this method. ID of updating story is changed because of @GeneratedValue
+    public void updateStory2(Long storyId, UserStory newStory) {
+        UserStory storyBeforeUpdate = repository.findById(storyId)
+                .orElseThrow(() -> new IllegalStateException("Story with id" + storyId + " doesn't exist!"));
+//        newStory.setId(storyId);
+        newStory.setStatus(storyBeforeUpdate.getStatus());
+        repository.delete(storyBeforeUpdate);
+        repository.save(newStory);
+    }
 }
+
