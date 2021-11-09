@@ -35,19 +35,6 @@ public class UserStoryController {
         return "/story/add_story";
     }
 
-    @GetMapping("/story/{storyId}")
-    public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model){
-        Optional<UserStory> optional = service.getStoryById(storyId);
-        if (optional.isPresent()) {
-            model.addAttribute("storyId", storyId);
-            model.addAttribute("title", "Update story");
-            model.addAttribute("current_story", optional);
-        } else {
-            throw new IllegalStateException("There are no story with id " + storyId);
-        }
-        return "/story/update_story";
-    }
-
     @PostMapping("/story")
     public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
         service.saveNewStory(story);
@@ -63,7 +50,23 @@ public class UserStoryController {
 //        return "redirect:/";
 //    }
 
-//    @PutMapping
-//    public String updateStory()
+    @GetMapping("/story/{storyId}")
+    public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model) {
+        Optional<UserStory> optional = service.getStoryById(storyId);
+        if (optional.isPresent()) {
+            model.addAttribute("storyId", storyId);
+            model.addAttribute("title", "Update story");
+            model.addAttribute("current_story", optional.get());
+        } else {
+            throw new IllegalStateException("There are no story with id " + storyId);
+        }
+        return "story/update_story";
+    }
 
+    @PutMapping("/story/{storyId}")
+    public String updateStory(@PathVariable("storyId") Long storyId,
+                              @RequestBody UserStory userStory) {
+        service.updateStory(storyId, userStory);
+        return "redirect:/";
+    }
 }

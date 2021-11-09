@@ -50,4 +50,14 @@ public class UserStoryService {
     public Optional<UserStory> getStoryById(Long storyId) {
         return repository.findById(storyId);
     }
+
+    public void updateStory(Long storyId, UserStory newStory) {
+        Optional<UserStory> storyBeforeUpdate = repository.findById(storyId);
+        if (storyBeforeUpdate.isPresent()){
+            newStory.setId(storyId);
+            newStory.setStatus(storyBeforeUpdate.get().getStatus());
+            repository.delete(storyBeforeUpdate.get());
+        }
+        repository.save(newStory);
+    }
 }

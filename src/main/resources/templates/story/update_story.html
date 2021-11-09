@@ -9,37 +9,40 @@
 <body>
 
 <!--    TODO multiline input required-->
-<h1 th:text="${current_story.get().title}"></h1>
-<form id="updateStory" th:action="'/story/'${storyId}" method="post">
+<h1 th:text="${current_story.title}"></h1>
+<form id="updateStory">
 
     <p>Story title
         <input name="title" id="story_title" type="text" placeholder="Title" minlength="5"
-               th:value="${current_story.get().title}" required>
+               th:value="${current_story.title}" required>
     </p>
 
     <p>Story
-        <input name="description" id="user_story" placeholder="Story" required>
+        <input name="description" id="user_story" placeholder="Story" th:value="${current_story.description}" required>
     </p>
 
     <p>Acceptance Criteria
-        <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance" required>
+        <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance"
+               th:value="${current_story.acceptanceCriteria}" required>
     </p>
 
     <p>Business Value
-        <input name="businessValue" id="business_value" type="number" placeholder="Value" required>
+        <input name="businessValue" id="business_value" type="number" placeholder="Value"
+               th:value="${current_story.businessValue}" required>
     </p>
 
     <p>Estimation
-        <input name="estimation" id="estimation" type="number" placeholder="Estimation" required>
+        <input name="estimation" id="estimation" type="number" placeholder="Estimation"
+               th:value="${current_story.estimation}" required>
     </p>
     <input type="submit" value="Submit">
 </form>
 
 <script defer>
-    document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
+    document.getElementById("updateStory").addEventListener("submit", submitStory);
 
-    function submitNewStory() {
-        const BASE_URL = 'http://localhost:8080';
+    function submitStory() {
+        let URL = window.location.href;
         let input = {
             "title": document.getElementById("story_title").value,
             "description": document.getElementById("user_story").value,
@@ -49,14 +52,14 @@
         }
 
         let options = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(input)
         }
 
-        fetch(BASE_URL + "/story", options)
+        fetch(URL, options)
             .then(response => response.json())
             .then(d => {
                 console.log(d)
@@ -64,7 +67,6 @@
             .catch(error => {
                 console.log("Error occurred in submit form.")
             })
-
     }
 </script>
 </body>
