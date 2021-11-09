@@ -35,6 +35,7 @@ public class UserStoryController {
         return "/story/add_story";
     }
 
+    // TODO fix redirect - white page with error (type=Unsupported Media Type, status=415).
     @PostMapping("/story")
     public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
         service.saveNewStory(story);
@@ -63,10 +64,12 @@ public class UserStoryController {
         return "story/update_story";
     }
 
+    // TODO: don't redirect
     @PutMapping("/story/{storyId}")
     public String updateStory(@PathVariable("storyId") Long storyId,
                               @RequestBody UserStory userStory) {
         service.updateStory(storyId, userStory);
+//        service.updateStory2(storyId, userStory);
         return "redirect:/";
     }
 }
