@@ -29,7 +29,7 @@ public class UserStoryService {
     }
 
     public void saveNewStory(UserStory story) {
-        story.setStatus("New");
+        story.setStatus("planning");
         repository.save(story);
     }
 
@@ -45,7 +45,7 @@ public class UserStoryService {
         story.setAcceptanceCriteria(parameters.get("acceptanceCriteria"));
         story.setBusinessValue(Integer.parseInt(parameters.get("businessValue")));
         story.setEstimation(Double.parseDouble(parameters.get("estimation")));
-        story.setStatus("New");
+        story.setStatus("planning");
     }
 
     public Optional<UserStory> getStoryById(Long storyId) {
@@ -61,6 +61,7 @@ public class UserStoryService {
         userStory.setAcceptanceCriteria(newStory.getAcceptanceCriteria());
         userStory.setBusinessValue(newStory.getBusinessValue());
         userStory.setEstimation(newStory.getEstimation());
+        userStory.setStatus(newStory.getStatus());
     }
 
     // TODO: fix this method. ID of updating story is changed because of @GeneratedValue

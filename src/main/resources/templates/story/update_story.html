@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
 
-<!--    <script type="text/javascript" src="/js/main.js" defer></script>-->
+    <!--    <script type="text/javascript" src="/js/main.js" defer></script>-->
 </head>
 <body>
 
@@ -12,34 +12,59 @@
 <h1 th:text="${current_story.title}"></h1>
 <form id="updateStory">
 
-    <p>Story title
+    <p>
+        <label for="story_title">Story title</label>
         <input name="title" id="story_title" type="text" placeholder="Title" minlength="5"
                th:value="${current_story.title}" required>
     </p>
 
-    <p>Story
-        <input name="description" id="user_story" placeholder="Story" th:value="${current_story.description}" required>
+    <p>
+        <label for="user_story">Story</label>
+        <input name="description" id="user_story" placeholder="Story" th:value="${current_story.description}"
+               required><br>
     </p>
 
-    <p>Acceptance Criteria
+    <p>
+        <label for="acceptance">Acceptance Criteria</label>
         <input name="acceptanceCriteria" id="acceptance" type="text" placeholder="Acceptance"
                th:value="${current_story.acceptanceCriteria}" required>
     </p>
 
-    <p>Business Value
+    <p>
+        <label for="business_value">Business Value</label>
         <input name="businessValue" id="business_value" type="number" placeholder="Value"
                th:value="${current_story.businessValue}" required>
     </p>
 
-    <p>Estimation
+    <p>
+        <label for="estimation">Estimation</label>
         <input name="estimation" id="estimation" type="number" placeholder="Estimation"
                th:value="${current_story.estimation}" required>
     </p>
+
+    <p>
+        <label for="status">Status</label>
+        <select id="status" th:data="${current_story.status}">
+            <option id="planning" value="planning">Planning</option>
+            <option id="todo" value="todo">To Do</option>
+            <option id="in progress" value="in progress">In progress</option>
+            <option id="review" value="review">Review</option>
+            <option id="done" value="done">Done</option>
+        </select>
+    </p>
+
     <input type="submit" value="Submit">
 </form>
 
 <script defer>
+    putCurrentStatusOption();
     document.getElementById("updateStory").addEventListener("submit", submitStory);
+
+    function putCurrentStatusOption() {
+        let currentOption = document.getElementById("status").attributes.data.value;
+        document.getElementById(currentOption).setAttribute("selected", "selected")
+
+    }
 
     function submitStory() {
         let URL = window.location.href;
@@ -49,6 +74,7 @@
             "acceptanceCriteria": document.getElementById("acceptance").value,
             "businessValue": document.getElementById("business_value").value,
             "estimation": document.getElementById("estimation").value,
+            "status": document.getElementById("status").value,
         }
 
         let options = {
