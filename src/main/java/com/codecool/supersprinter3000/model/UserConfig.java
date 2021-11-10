@@ -15,11 +15,11 @@ public class UserConfig {
         return args -> {
             UserStory story1 = new UserStory();
             populateStory(story1, "Story title 1", "Bla-bla-bla", "Story ready", 10,
-                    15.3, "Old");
+                    15.3, "review");
 
             UserStory story2 = new UserStory();
             populateStory(story2, "Story title 2", "Story description", "Story not ready", 5,
-                    20.8, "Old");
+                    20.8, "done");
 
             repository.saveAll(List.of(story1, story2));
         };
