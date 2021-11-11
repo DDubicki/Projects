@@ -2,10 +2,13 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -21,7 +24,6 @@ public class UserStoryController {
 
     @GetMapping()
 //    @DeleteMapping
-//    @PutMapping
 //    @ResponseBody
     public String getIndexPage(Model model) {
         model.addAttribute("title", "Super Sprinter");
@@ -35,21 +37,18 @@ public class UserStoryController {
         return "/story/add_story";
     }
 
-    // TODO fix redirect - white page with error (type=Unsupported Media Type, status=415).
-    @PostMapping("/story")
-    public String addStory(@RequestBody UserStory story) { // Can remove @RequestBody. And it works, but send two forms. One of them is empty
-        service.saveNewStory(story);
-        return "redirect:/";
-//        return "/story/add_story";
-    }
-
-    // TODO - At first send empty form, second send correct form
-//    @PostMapping("/story")
-//    public String addStory2(@RequestParam HashMap<String, String> parameters) {
-//        if (!parameters.isEmpty())
-//            service.saveNewStory2(parameters);
-//        return "redirect:/";
+    // TODO return json object!!!
+//    @ResponseBody // return response (object) from server to JS
+//    @PostMapping(value = "/story")
+//    public void addStory(@RequestBody UserStory story) {
+//        service.saveNewStory(story);
 //    }
+
+    @PostMapping("/story")
+    public void addStory2(@RequestParam HashMap<String, String> parameters) {
+        service.saveNewStory2(parameters);
+        System.out.println(parameters);
+    }
 
     @GetMapping("/story/{storyId}")
     public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model) {
