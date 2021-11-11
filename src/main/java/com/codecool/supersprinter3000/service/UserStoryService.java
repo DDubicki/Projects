@@ -52,16 +52,22 @@ public class UserStoryService {
         return repository.findById(storyId);
     }
 
-    @Transactional // thanks this we shouldn't use query in Repository
+//    @Transactional // thanks this we shouldn't use query in Repository
     public void updateStory(Long storyId, UserStory newStory) {
-        UserStory userStory = repository.findById(storyId)
-                .orElseThrow(()-> new IllegalStateException("Story with id" + storyId + " doesn't exist!"));
-        userStory.setTitle(newStory.getTitle());
-        userStory.setDescription(newStory.getDescription());
-        userStory.setAcceptanceCriteria(newStory.getAcceptanceCriteria());
-        userStory.setBusinessValue(newStory.getBusinessValue());
-        userStory.setEstimation(newStory.getEstimation());
-        userStory.setStatus(newStory.getStatus());
+//        UserStory userStory = repository.findById(storyId)
+//                .orElseThrow(()-> new IllegalStateException("Story with id" + storyId + " doesn't exist!"));
+//        userStory.setTitle(newStory.getTitle());
+//        userStory.setDescription(newStory.getDescription());
+//        userStory.setAcceptanceCriteria(newStory.getAcceptanceCriteria());
+//        userStory.setBusinessValue(newStory.getBusinessValue());
+//        userStory.setEstimation(newStory.getEstimation());
+//        userStory.setStatus(newStory.getStatus());
+//        repository.save(userStory);
+        if (!repository.existsById(storyId)){
+            throw new IllegalArgumentException("Story with id" + storyId + " doesn't exist!");
+        }
+        newStory.setId(storyId);
+        repository.save(newStory);
     }
 
     // TODO: fix this method. ID of updating story is changed because of @GeneratedValue

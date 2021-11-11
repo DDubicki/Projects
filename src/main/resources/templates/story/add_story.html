@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
+    <script src="/static/js/main.js" defer></script>
 </head>
 <body>
 
 <!--    TODO multiline input required-->
 <h1>New story</h1>
-<form id="saveNewStory" action="/story" method="post">
+<form id="saveNewStory" action="javascript:submitNewStory();">
 
     <p>
         <label for="story_title">Story title</label>
@@ -39,7 +40,7 @@
 </form>
 
 <script defer>
-    document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
+    // document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
 
     function submitNewStory() {
         const BASE_URL = 'http://localhost:8080';
@@ -61,11 +62,9 @@
 
         fetch(BASE_URL + "/story", options)
             .then(response => response.json())
-            .then(d => {
-                console.log(d)
-            })
+            .then(window.location.href = BASE_URL)
             .catch(error => {
-                console.log("Error occurred in submit form.")
+                console.log("Error occurred in submit form: " + error)
             })
     }
 </script>
