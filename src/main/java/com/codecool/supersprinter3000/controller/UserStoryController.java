@@ -2,13 +2,10 @@ package com.codecool.supersprinter3000.controller;
 
 import com.codecool.supersprinter3000.model.UserStory;
 import com.codecool.supersprinter3000.service.UserStoryService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -37,18 +34,17 @@ public class UserStoryController {
         return "/story/add_story";
     }
 
-    // TODO return json object!!!
-//    @ResponseBody // return response (object) from server to JS
-//    @PostMapping(value = "/story")
-//    public void addStory(@RequestBody UserStory story) {
-//        service.saveNewStory(story);
-//    }
-
-    @PostMapping("/story")
-    public void addStory2(@RequestParam HashMap<String, String> parameters) {
-        service.saveNewStory2(parameters);
-        System.out.println(parameters);
+    @ResponseBody // return response (object) from server to JS
+    @PostMapping(value = "/story")
+    public UserStory addStory(@RequestBody UserStory story) {
+        service.saveNewStory(story);
+        return story;
     }
+
+//    @PostMapping("/story")
+//    public void addStory2(@RequestParam HashMap<String, String> parameters) {
+//        service.saveNewStory2(parameters);
+//    }
 
     @GetMapping("/story/{storyId}")
     public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model) {
@@ -63,7 +59,6 @@ public class UserStoryController {
         return "story/update_story";
     }
 
-    // TODO: don't redirect
     @PutMapping("/story/{storyId}")
     public String updateStory(@PathVariable("storyId") Long storyId,
                               @RequestBody UserStory userStory) {
