@@ -38,35 +38,5 @@
 
     <input type="submit" value="Submit">
 </form>
-
-<script defer>
-    // document.getElementById("saveNewStory").addEventListener("submit", submitNewStory);
-
-    function submitNewStory() {
-        const BASE_URL = 'http://localhost:8080';
-        let input = {
-            "title": document.getElementById("story_title").value,
-            "description": document.getElementById("user_story").value,
-            "acceptanceCriteria": document.getElementById("acceptance").value,
-            "businessValue": document.getElementById("business_value").value,
-            "estimation": document.getElementById("estimation").value,
-        }
-
-        let options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(input)
-        }
-
-        fetch(BASE_URL + "/story", options)
-            .then(response => response.json())
-            .then(window.location.href = BASE_URL)
-            .catch(error => {
-                console.log("Error occurred in submit form: " + error)
-            })
-    }
-</script>
 </body>
 </html>

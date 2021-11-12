@@ -37,18 +37,17 @@ public class UserStoryController {
         return "/story/add_story";
     }
 
-    // TODO return json object!!!
-//    @ResponseBody // return response (object) from server to JS
-//    @PostMapping(value = "/story")
-//    public void addStory(@RequestBody UserStory story) {
-//        service.saveNewStory(story);
-//    }
-
-    @PostMapping("/story")
-    public void addStory2(@RequestParam HashMap<String, String> parameters) {
-        service.saveNewStory2(parameters);
-        System.out.println(parameters);
+    @ResponseBody // return response (object) from server to JS
+    @PostMapping(value = "/story")
+    public UserStory addStory(@RequestBody UserStory story) {
+        service.saveNewStory(story);
+        return story;
     }
+
+//    @PostMapping("/story")
+//    public void addStory2(@RequestParam HashMap<String, String> parameters) {
+//        service.saveNewStory2(parameters);
+//    }
 
     @GetMapping("/story/{storyId}")
     public String getUpdateStory(@PathVariable("storyId") Long storyId, Model model) {
