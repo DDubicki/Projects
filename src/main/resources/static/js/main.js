@@ -26,11 +26,11 @@ function doSomethingWithData(data) {
 
 function fetchData(URL, options) {
     fetch(URL, options)
-        .then(response => {
-            response.json()
-                .then(data => doSomethingWithData(data))
-        })
-        .then(window.location.replace(BASE_URL))
+        // .then(response => {
+        //     response.json()
+        //         .then(data => doSomethingWithData(data))
+        // })
+        .then(window.location.href = BASE_URL)
         .catch(error => {
             console.log("Error occurred in submit form: " + error)
         })

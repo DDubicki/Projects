@@ -43,7 +43,7 @@
 
     <p>
         <label for="status">Status</label>
-        <select id="status" th:data="${current_story.status}">
+        <select id="status" th:data="${current_story.status}" onload="putCurrentStatusOption()">
             <option id="planning" value="planning">Planning</option>
             <option id="todo" value="todo">To Do</option>
             <option id="in progress" value="in progress">In progress</option>
