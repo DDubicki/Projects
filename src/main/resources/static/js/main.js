@@ -24,8 +24,8 @@ function doSomethingWithData(data) {
     alert(data);
 }
 
-function fetchData(options) {
-    fetch(BASE_URL + "/story", options)
+function fetchData(URL, options) {
+    fetch(URL, options)
         .then(response => {
             response.json()
                 .then(data => doSomethingWithData(data))
@@ -36,8 +36,32 @@ function fetchData(options) {
         })
 }
 
+function putCurrentStatusOption() {
+    let currentOption = document.getElementById("status").attributes.data.value;
+    document.getElementById(currentOption).setAttribute("selected", "selected")
+}
+
 function submitNewStory() {
+    let URL = BASE_URL + "/story";
     let input = getUserInputToAddNewStory();
     let options = getOptions(input, 'POST');
-    fetchData(options);
+    fetchData(URL, options);
+}
+
+function getUserInputToUpdateStory() {
+    return {
+        "title": document.getElementById("story_title").value,
+        "description": document.getElementById("user_story").value,
+        "acceptanceCriteria": document.getElementById("acceptance").value,
+        "businessValue": document.getElementById("business_value").value,
+        "estimation": document.getElementById("estimation").value,
+        "status": document.getElementById("status").value,
+    }
+}
+
+function updateStory() {
+    let URL = window.location.href;
+    let input = getUserInputToUpdateStory();
+    let options = getOptions(input, 'PUT');
+    fetchData(URL, options);
 }
